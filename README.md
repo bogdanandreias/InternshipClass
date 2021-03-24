@@ -7,7 +7,7 @@ The infrastructure inspiration got [here](https://dev.to/alrobilliard/deploying-
 dotnet build
 ```
 
-to run
+to runnnnn
 ```
 dotnet run
 ```
