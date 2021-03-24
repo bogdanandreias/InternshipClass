@@ -7,7 +7,7 @@ The infrastructure inspiration got [here](https://dev.to/alrobilliard/deploying-
 dotnet build
 ```
 
-to runnnnn
+to run
 ```
 dotnet run
 ```
@@ -43,10 +43,10 @@ heroku container:login
 
 Push container
 ```
-heroku container:push -a borys-internship-class web
+heroku container:push -a internship-class-bogdan web
 ```
 
 Release the container
 ```
-heroku container:release -a borys-internship-class web
+heroku container:release -a internship-class-bogdan web
 ```
