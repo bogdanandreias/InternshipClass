@@ -21,4 +21,6 @@ $(document).ready(function () {
     $("#clear").click(function () {
         $("#newcomer").val("");
     })
+
+    
 });
