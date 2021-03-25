@@ -35,5 +35,18 @@ namespace RazorMvc.Controllers
         {
             return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
         }
+
+        [HttpDelete]
+        public void RemoveMember(int index)
+        {
+            _internshipClass.Members.RemoveAt(index);
+        }
+
+        [HttpGet]
+        public string AddMember(string member)
+        {
+            _internshipClass.Members.Add(member);
+            return member;
+        }
     }
 }
