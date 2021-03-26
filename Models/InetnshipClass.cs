@@ -13,7 +13,6 @@ namespace RazorMvc.Models
                 "Passes all tests",
                 "Reveals intention",
                 "No duplication",
-                "Minimal",
             };
         }
 
