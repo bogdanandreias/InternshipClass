@@ -35,13 +35,12 @@ $(document).ready(function () {
 
         var name = $('#classmateName').val();
         var index = $('#editClassmate').attr("memberIndex");
-
         console.log(`/Home/UpdateMember?index=${index}&name=${name}`);
         $.ajax({
             url: `/Home/UpdateMember?index=${index}&name=${name}`,
             type: 'PUT',
             success: function (response) {
-                
+                $('.name').get(index).replaceWith(name);
             }
         });
     })
