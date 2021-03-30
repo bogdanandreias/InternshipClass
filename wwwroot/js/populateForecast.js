@@ -1,17 +1,24 @@
-﻿$.ajax({
-    url: `/WeatherForecast`,
-    success: function (data) {
-        let tomorrow = data[0];
-        let tomorrowDate = formatDate(tomorrow.date)
+﻿function refreshWeatherForecast() {
+    $.ajax({
+        url: `/WeatherForecast`,
+        success: function (data) {
+            let tomorrow = data[0];
+            let tomorrowDate = formatDate(tomorrow.date)
 
-        $('#date').text(tomorrowDate);
-        $('#temperature').text(tomorrow.temperatureC + ' C');
-        $('#summary').text(tomorrow.summary);
-    },
-    error: function (data) {
-        alert(`failed to load data`);
-    },
-});
+            $('#date').text(tomorrowDate);
+            $('#temperature').text(tomorrow.temperatureC + ' C');
+            $('#summary').text(tomorrow.summary);
+        },
+        error: function (data) {
+            alert(`failed to load data`);
+        },
+    });
+
+}
+
+
+setInterval(refreshWeatherForecast, 3000);
+
 
 function formatDate(jsonDate) {
 
