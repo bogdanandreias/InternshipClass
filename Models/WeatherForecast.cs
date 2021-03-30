@@ -17,6 +17,10 @@ namespace RazorMVC.WebAPI
             {
                 return TemperatureC + 273.15;
             }
+            set 
+            {
+
+            }
         }
     }
 }

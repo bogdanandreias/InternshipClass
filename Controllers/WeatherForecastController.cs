@@ -4,6 +4,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
+using Newtonsoft.Json;
 using RestSharp;
 
 namespace RazorMVC.WebAPI.Controllers
@@ -14,7 +15,7 @@ namespace RazorMVC.WebAPI.Controllers
     {
         private static readonly string[] Summaries = new[]
         {
-            "Freezing", "Bracing", "Chilly", "Cool", "Mild", "Warm", "Balmy", "Hot", "Sweltering", "Scorching"
+            "Freezing", "Bracing", "Chilly", "Cool", "Mild", "Warm", "Balmy", "Hot", "Sweltering", "Scorching",
         };
 
         private readonly ILogger<WeatherForecastController> _logger;
@@ -31,22 +32,18 @@ namespace RazorMVC.WebAPI.Controllers
         [HttpGet]
         public IEnumerable<WeatherForecast> Get()
         {
-            
-            
             var client = new RestClient("https://api.openweathermap.org/data/2.5/weather?q=Brasov&appid=7447d7b593ced104ad765a48307b6771");
             client.Timeout = -1;
             var request = new RestRequest(Method.GET);
             IRestResponse response = client.Execute(request);
             Console.WriteLine(response.Content);
 
-            
-
             var rng = new Random();
             return Enumerable.Range(1, 5).Select(index => new WeatherForecast
             {
                 Date = DateTime.Now.AddDays(index),
                 TemperatureC = rng.Next(-20, 55),
-                Summary = Summaries[rng.Next(Summaries.Length)]
+                Summary = Summaries[rng.Next(Summaries.Length)],
             })
             .ToArray();
         }
@@ -58,12 +55,15 @@ namespace RazorMVC.WebAPI.Controllers
             var request = new RestRequest(Method.GET);
             IRestResponse response = client.Execute(request);
             Console.WriteLine(response.Content);
+
             return ConvertResponseContentToWeatherForecastList(response.Content);
         }
 
         private IList<WeatherForecast> ConvertResponseContentToWeatherForecastList(string content)
         {
-            throw new NotImplementedException();
+            var model = JsonConvert.DeserializeObject<WeatherForecast>(content);
+
+            return (IList<WeatherForecast>)model;
         }
     }
 }
