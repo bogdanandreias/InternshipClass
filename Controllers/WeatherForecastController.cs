@@ -5,6 +5,8 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using Newtonsoft.Json;
+using Newtonsoft.Json.Linq;
+using RazorMvc.Utilities;
 using RestSharp;
 
 namespace RazorMVC.WebAPI.Controllers
@@ -42,7 +44,7 @@ namespace RazorMVC.WebAPI.Controllers
             return Enumerable.Range(1, 5).Select(index => new WeatherForecast
             {
                 Date = DateTime.Now.AddDays(index),
-                TemperatureC = rng.Next(-20, 55),
+                TemperatureK = rng.Next(250, 320),
                 Summary = Summaries[rng.Next(Summaries.Length)],
             })
             .ToArray();
@@ -61,9 +63,28 @@ namespace RazorMVC.WebAPI.Controllers
 
         private IList<WeatherForecast> ConvertResponseContentToWeatherForecastList(string content)
         {
-            var model = JsonConvert.DeserializeObject<WeatherForecast>(content);
 
-            return (IList<WeatherForecast>)model;
+            var json = JObject.Parse(content);
+            var jsonArray = json["daily"];
+            IList<WeatherForecast> weatherForecasts = new List<WeatherForecast>();
+            foreach (var item in jsonArray)
+            {
+                WeatherForecast obj = new WeatherForecast();
+                obj.Date = DateTimeConverter.ConvertEpochToDateTime(item.Value<long>("dt"));
+                obj.TemperatureK = item.SelectToken("temp").Value<double>("day");
+                obj.Summary = item.SelectToken("weather")[0].Value<string>("main");
+
+                try
+                {
+                    weatherForecasts.Add(obj);
+                }
+                catch (Exception ex)
+                {
+                    Console.WriteLine(ex);
+                }
+            }
+
+            return weatherForecasts;
         }
     }
 }
