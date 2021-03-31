@@ -9,6 +9,7 @@ using Newtonsoft.Json.Linq;
 using RazorMvc.Utilities;
 using RestSharp;
 
+
 namespace RazorMVC.WebAPI.Controllers
 {
     [ApiController]
@@ -34,23 +35,15 @@ namespace RazorMVC.WebAPI.Controllers
         [HttpGet]
         public IEnumerable<WeatherForecast> Get()
         {
-            var client = new RestClient("https://api.openweathermap.org/data/2.5/weather?q=Brasov&appid=7447d7b593ced104ad765a48307b6771");
-            client.Timeout = -1;
-            var request = new RestRequest(Method.GET);
-            IRestResponse response = client.Execute(request);
-            Console.WriteLine(response.Content);
+            var lat = 45.75;
+            var lon = 25.3333;
+            var apiKey = "7447d7b593ced104ad765a48307b6771";
+            var weatherForecasts = FetchWeatherForecasts(lat,lon,apiKey);
 
-            var rng = new Random();
-            return Enumerable.Range(1, 5).Select(index => new WeatherForecast
-            {
-                Date = DateTime.Now.AddDays(index),
-                TemperatureK = rng.Next(250, 320),
-                Summary = Summaries[rng.Next(Summaries.Length)],
-            })
-            .ToArray();
+            return weatherForecasts.GetRange(1, 5);
         }
 
-        public IList<WeatherForecast> FetchWeatherForecasts(double lat, double lon, string apiKey)
+        public List<WeatherForecast> FetchWeatherForecasts(double lat, double lon, string apiKey)
         {
             var client = new RestClient($"https://api.openweathermap.org/data/2.5/onecall?lat={lat}&lon={lon}&exclude=hourly,minutely&appid={apiKey}");
             client.Timeout = -1;
@@ -61,12 +54,12 @@ namespace RazorMVC.WebAPI.Controllers
             return ConvertResponseContentToWeatherForecastList(response.Content);
         }
 
-        public IList<WeatherForecast> ConvertResponseContentToWeatherForecastList(string content)
+        public List<WeatherForecast> ConvertResponseContentToWeatherForecastList(string content)
         {
 
             JToken root = JObject.Parse(content);
             JToken testToken = root["daily"];
-            IList<WeatherForecast> forecasts = new List<WeatherForecast>();
+            var forecasts = new List<WeatherForecast>();
             foreach (var token in testToken)
             {
                 var forecast = new WeatherForecast();
