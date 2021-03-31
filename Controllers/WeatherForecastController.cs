@@ -64,27 +64,19 @@ namespace RazorMVC.WebAPI.Controllers
         private IList<WeatherForecast> ConvertResponseContentToWeatherForecastList(string content)
         {
 
-            var json = JObject.Parse(content);
-            var jsonArray = json["daily"];
-            IList<WeatherForecast> weatherForecasts = new List<WeatherForecast>();
-            foreach (var item in jsonArray)
+            JToken root = JObject.Parse(content);
+            JToken testToken = root["daily"];
+            IList<WeatherForecast> forecasts = new List<WeatherForecast>();
+            foreach (var token in testToken)
             {
-                WeatherForecast obj = new WeatherForecast();
-                obj.Date = DateTimeConverter.ConvertEpochToDateTime(item.Value<long>("dt"));
-                obj.TemperatureK = item.SelectToken("temp").Value<double>("day");
-                obj.Summary = item.SelectToken("weather")[0].Value<string>("main");
-
-                try
-                {
-                    weatherForecasts.Add(obj);
-                }
-                catch (Exception ex)
-                {
-                    Console.WriteLine(ex);
-                }
+                var forecast = new WeatherForecast();
+                forecast.Date = DateTimeConverter.ConvertEpochToDateTime(long.Parse(token["dt"].ToString()));
+                forecast.TemperatureK = double.Parse(token["temp"]["day"].ToString());
+                forecast.Summary = token["weather"][0]["description"].ToString();
+                forecasts.Add(forecast);
             }
 
-            return weatherForecasts;
+            return forecasts;
         }
     }
 }

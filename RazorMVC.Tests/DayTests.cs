@@ -40,7 +40,7 @@ namespace RazorMVC.Tests
             WeatherForecast weatherForecastForTomorrow =  weatherForecasts[1];
 
             //Assert
-            Assert.Equal(284.25, weatherForecastForTomorrow.TemperatureK);
+            Assert.Equal(285.39, weatherForecastForTomorrow.TemperatureK);
 
         }
 

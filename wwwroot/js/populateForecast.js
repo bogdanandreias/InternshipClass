@@ -6,7 +6,7 @@
             let tomorrowDate = formatDate(tomorrow.date)
 
             $('#date').text(tomorrowDate);
-            $('#temperature').text(tomorrow.temperatureC + ' C');
+            $('#temperature').text(tomorrow.temperatureK + ' K');
             $('#summary').text(tomorrow.summary);
         },
         error: function (data) {

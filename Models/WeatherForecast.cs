@@ -7,20 +7,16 @@ namespace RazorMVC.WebAPI
     {
         public DateTime Date { get; set; }
 
-        public int TemperatureC { get; set; }
-
-        public string Summary { get; set; }
-
-        public double TemperatureK
+        public int TemperatureC
         {
             get
             {
-                return TemperatureC + 273.15;
-            }
-            set 
-            {
-
+                return (int)(TemperatureK - 273.15);
             }
         }
+
+        public string Summary { get; set; }
+
+        public double TemperatureK{ get; set; }
     }
 }
