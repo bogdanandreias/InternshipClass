@@ -43,7 +43,7 @@ namespace RazorMVC.Tests
             var weatherForecastController = new WeatherForecastController(nullLogger, configuration);
 
             //Act
-            var weatherForecasts = weatherForecastController.FetchWeatherForecasts(lat, lon, APIKey);
+            var weatherForecasts = weatherForecastController.FetchWeatherForecasts();
 
             //Assert
             Assert.Equal(8, weatherForecasts.Count);
