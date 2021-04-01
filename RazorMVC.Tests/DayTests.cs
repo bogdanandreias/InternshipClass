@@ -67,7 +67,7 @@ namespace RazorMVC.Tests
         private string GetStreamLines()
         {
             var assembly = this.GetType().Assembly;
-            var stream = assembly.GetManifestResourceStream("RazorMVC.Tests.weatherForecast.json");
+            using var stream = assembly.GetManifestResourceStream("RazorMVC.Tests.weatherForecast.json");
             StreamReader streamReader = new StreamReader(stream);
             var streamLineReader = "";
 
@@ -76,8 +76,6 @@ namespace RazorMVC.Tests
                 streamLineReader += streamReader.ReadLine();
 
             }
-
-            streamReader.Close();
             return streamLineReader;
         }
 
