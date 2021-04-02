@@ -1,12 +1,14 @@
 ﻿using RazorMvc.Models;
+using RazorMVC.Data;
 using System;
+using System.Collections.Generic;
 
 namespace RazorMvc.Services
 {
     public class InternshipService
     {
         private readonly InternshipClass _internshipClass = new();
-
+        
         public void RemoveMember(int index)
         {
             _internshipClass.Members.RemoveAt(index);
