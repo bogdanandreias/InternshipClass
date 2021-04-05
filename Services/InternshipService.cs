@@ -14,10 +14,10 @@ namespace RazorMvc.Services
             _internshipClass.Members.RemoveAt(index);
         }
 
-        public string AddMember(string member)
+        public int AddMember(Intern intern)
         {
-            _internshipClass.Members.Add(member);
-            return member;
+            _internshipClass.Members.Add(intern);
+            return intern.Id;
         }
 
         public InternshipClass GetClass()
@@ -25,9 +25,9 @@ namespace RazorMvc.Services
             return _internshipClass;
         }
 
-        internal void UpdateMember(int index, string name)
+        internal void UpdateMember(Intern intern)
         {
-            _internshipClass.Members[index] = name;
+            
         }
     }
 }
