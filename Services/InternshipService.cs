@@ -27,7 +27,12 @@ namespace RazorMvc.Services
 
         internal void UpdateMember(Intern intern)
         {
-            
+            _internshipClass.Members[intern.Id] = intern;
+        }
+
+        public IList<Intern> GetMembers()
+        {
+            return _internshipClass.Members;
         }
     }
 }

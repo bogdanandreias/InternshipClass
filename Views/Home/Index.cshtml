@@ -1,17 +1,26 @@
-﻿@{
+﻿@model IList<Intern>
+
+
+@{
     ViewData["Title"] = "Information about our classroom";
+
 }
+
 
 @section styles {
     <!-- Read about this here https://fontawesome.com/icons?d=gallery&p=2 -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+
 }
+
 
 @section scripts {
     <script type="text/javascript" src="~/js/addNewcomer.js"></script>
     <script type="text/javascript" src="~/js/removeNewcomer.js"></script>
     <script type="text/javascript" src="~/js/populateForecast.js"></script>
+
 }﻿
+
 
 @section modalWindows {
     <!-- Modal -->
@@ -38,6 +47,7 @@
 
         </div>
     </div>
+
 }
 
 <!DOCTYPE html>
@@ -52,13 +62,13 @@
     <p>Here is our classroom</p>
 
     <ul id="list">
-        @for (var i = 0; i < Model.Members.Count; i++)
+        @for (var i = 0; i < Model.Count; i++)
         {
-            var member = Model.Members[i];
+            var member = Model[i];
 
             <li class="member">
-                <div class="memberInfo" memberId="@i">
-                    <span class="name">@member</span><i class="delete fa fa-remove"></i>
+                <div class="memberInfo">
+                    <span class="name">@member.Name</span><i class="delete fa fa-remove"></i>
                     <i class="startEdit fa fa-pencil" data-toggle="modal" data-target="#editClassmate"></i>
                 </div>
             </li>
