@@ -2,6 +2,7 @@
 using RazorMVC.Data;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace RazorMvc.Services
 {
@@ -9,9 +10,10 @@ namespace RazorMvc.Services
     {
         private readonly InternshipClass _internshipClass = new();
 
-        public void RemoveMember(int index)
+        public void RemoveMember(int id)
         {
-            _internshipClass.Members.RemoveAt(index);
+            var itemToBeDeleted = _internshipClass.Members.Single(_ => _.Id == id);
+            _internshipClass.Members.Remove(itemToBeDeleted);
         }
 
         public Intern AddMember(Intern intern)
