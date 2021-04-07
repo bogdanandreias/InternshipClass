@@ -58,8 +58,9 @@ namespace RazorMvc.Controllers
         public void UpdateMember(int id, string newName)
         {
             Intern intern = new Intern();
-            intern.Name = newName;
             intern.Id = id;
+            intern.Name = newName;
+            intern.DateOfJoin = DateTime.Now;
             intershipService.UpdateMember(intern);
         }
 
