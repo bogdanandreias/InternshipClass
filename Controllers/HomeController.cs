@@ -35,8 +35,7 @@ namespace RazorMvc.Controllers
 
         public IActionResult Chat()
         {
-            var interns = db.Interns.ToList();
-            return View(interns);
+            return View();
         }
 
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
