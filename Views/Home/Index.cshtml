@@ -18,7 +18,8 @@
     <script type="text/javascript" src="~/js/addNewcomer.js"></script>
     <script type="text/javascript" src="~/js/removeNewcomer.js"></script>
     <script type="text/javascript" src="~/js/populateForecast.js"></script>
-
+    <script src="~/lib/microsoft-signalr/signalr.js"></script>
+    <script src="~/js/subscribeOnChanges.js"></script>
 }﻿
 
 
@@ -66,12 +67,12 @@
         {
             var member = Model[i];
 
-        <li class="member" member-id="@member.Id">
-            <div class="memberInfo">
-                <span class="name">@member.Name</span><i class="delete fa fa-remove"></i>
-                <i class="startEdit fa fa-pencil" data-toggle="modal" data-target="#editClassmate"></i>
-            </div>
-        </li>
+            <li class="member" member-id="@member.Id">
+                <div class="memberInfo">
+                    <span class="name">@member.Name</span><i class="delete fa fa-remove"></i>
+                    <i class="startEdit fa fa-pencil" data-toggle="modal" data-target="#editClassmate"></i>
+                </div>
+            </li>
         }
     </ul>
 
