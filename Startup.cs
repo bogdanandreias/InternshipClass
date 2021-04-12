@@ -45,6 +45,7 @@ namespace RazorMvc
                 c.IncludeXmlComments(xmlPath);
             });
             services.AddSignalR();
+            services.AddSingleton<MessageService>();
             
         }
 
