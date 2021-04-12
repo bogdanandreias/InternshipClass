@@ -33,6 +33,12 @@ namespace RazorMvc.Controllers
             return View(interns);
         }
 
+        public IActionResult Chat()
+        {
+            var interns = db.Interns.ToList();
+            return View(interns);
+        }
+
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
         public IActionResult Error()
         {
