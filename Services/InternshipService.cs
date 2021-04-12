@@ -1,4 +1,5 @@
-﻿using RazorMvc.Models;
+﻿using RazorMvc.Hubs;
+using RazorMvc.Models;
 using RazorMVC.Data;
 using System;
 using System.Collections.Generic;
@@ -31,6 +32,11 @@ namespace RazorMvc.Services
         public IList<Intern> GetMembers()
         {
             return _internshipClass.Members;
+        }
+
+        void IInternshipService.SubscribeToAddMember(IAddMemberSubscriber messageHub)
+        {
+            throw new NotImplementedException();
         }
     }
 }

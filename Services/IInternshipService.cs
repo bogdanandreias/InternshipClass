@@ -1,4 +1,5 @@
-﻿using RazorMvc.Models;
+﻿using RazorMvc.Hubs;
+using RazorMvc.Models;
 using System.Collections.Generic;
 
 namespace RazorMvc.Services
@@ -9,5 +10,6 @@ namespace RazorMvc.Services
         IList<Intern> GetMembers();
         void RemoveMember(int index);
         void UpdateMember(Intern intern);
+        void SubscribeToAddMember(IAddMemberSubscriber messageHub);
     }
 }
