@@ -6,6 +6,7 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.OpenApi.Models;
 using RazorMvc.Data;
+using RazorMvc.Hubs;
 using RazorMvc.Services;
 using RazorMVC.Data;
 using System;
@@ -43,6 +44,7 @@ namespace RazorMvc
                 var xmlPath = Path.Combine(AppContext.BaseDirectory, xmlFile);
                 c.IncludeXmlComments(xmlPath);
             });
+            services.AddSignalR();
             
         }
 
@@ -76,6 +78,7 @@ namespace RazorMvc
                 endpoints.MapControllerRoute(
                     name: "default",
                     pattern: "{controller=Home}/{action=Index}/{id?}");
+                endpoints.MapHub<MessageHub>("/messagehub");
             });
         }
     }
