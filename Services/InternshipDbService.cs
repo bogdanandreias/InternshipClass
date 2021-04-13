@@ -41,5 +41,9 @@ namespace RazorMvc.Services
             db.Remove<Intern>(intern);
             db.SaveChanges();
         }
+        public Intern GetMemberById(int id)
+        {
+            return db.Find<Intern>(id);
+        }
     }
 }

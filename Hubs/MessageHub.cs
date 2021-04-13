@@ -11,13 +11,10 @@ namespace RazorMvc.Hubs
     public class MessageHub : Hub
     {
         private readonly MessageService messageService;
-        private readonly IInternshipService internshipService;
 
         public MessageHub(MessageService messageService, IInternshipService internshipService)
         {
             this.messageService = messageService;
-            this.internshipService = internshipService;
-
         }
 
         public async Task SendMessage(string user, string message)
