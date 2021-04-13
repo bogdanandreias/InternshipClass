@@ -33,10 +33,5 @@ namespace RazorMvc.Services
         {
             return _internshipClass.Members;
         }
-
-        void IInternshipService.SubscribeToAddMember(IAddMemberSubscriber messageHub)
-        {
-            throw new NotImplementedException();
-        }
     }
 }
