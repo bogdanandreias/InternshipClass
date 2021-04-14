@@ -5,7 +5,10 @@ $(document).ready(function () {
         var newcomerName = $("#newcomer").val();
 
         $.ajax({
-            url: `/Home/AddMember?memberName=${newcomerName}`,
+            contentType: 'application/json',
+            data: JSON.stringify({ "Name": `${newcomerName}` }),
+            method: "POST",
+            url: 'api/Internship/',
             success: function (data) {
                 $("#newcomer").val("");
             },
@@ -36,8 +39,10 @@ $(document).ready(function () {
         var clientId = $('#editClassmate').attr("clientId");
         console.log(`/Home/UpdateMember?index=${id}&name=${newName}`);
         $.ajax({
-            url: `/Home/UpdateMember?id=${id}&newName=${newName}`,
-            type: 'PUT',
+            contentType: 'application/json',
+            data: JSON.stringify({ "Name": `${newName}` }),
+            method: "PUT",
+            url: `api/Internship/${id}`,
             success: function (response) {
                 $('.name').eq(clientId).replaceWith(newName);
             },
