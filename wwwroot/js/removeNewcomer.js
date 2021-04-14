@@ -9,11 +9,6 @@
         $.ajax({
             method: "DELETE",
             url: `api/Internship/${id}`,
-            success: function (data) {
-
-                $li.remove();
-
-            },
             error: function (data) {
                 alert(`Failed to delete`);
             },

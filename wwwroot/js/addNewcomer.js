@@ -43,9 +43,6 @@ $(document).ready(function () {
             data: JSON.stringify({ "Name": `${newName}` }),
             method: "PUT",
             url: `api/Internship/${id}`,
-            success: function (response) {
-                $('.name').eq(clientId).replaceWith(newName);
-            },
             error: function (data) {
                 alert(`Failed to update`);
             }
