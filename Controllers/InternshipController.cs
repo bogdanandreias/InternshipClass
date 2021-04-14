@@ -65,6 +65,7 @@ namespace RazorMvc.Controllers
         public void Delete(int id)
         {
             internshipService.RemoveMember(id);
+            hubContext.Clients.All.SendAsync("RemoveMember", id);
         }
     }
 }
