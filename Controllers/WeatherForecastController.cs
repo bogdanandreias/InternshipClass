@@ -19,32 +19,35 @@ namespace RazorMVC.WebAPI.Controllers
     public class WeatherForecastController : ControllerBase
     {
         private readonly ILogger<WeatherForecastController> _logger;
-        private IConfiguration configuration;
+        private readonly string apiKey;
+        private readonly double lat;
+        private readonly double lon;
 
         public WeatherForecastController(ILogger<WeatherForecastController> logger, IConfiguration configuration)
         {
             _logger = logger;
-            this.configuration = configuration;
+
+            this.lat = double.Parse(configuration["WeatherForecast:lat"], CultureInfo.InvariantCulture);
+            this.lon = double.Parse(configuration["WeatherForecast:lon"], CultureInfo.InvariantCulture);
+            this.apiKey = configuration["WeatherForecast:apiKey"];
         }
 
         /// <summary>
-        /// Getting Weather forecast for five days.
+        /// Getting Weather forecast for five days for default location.
         /// </summary>
         /// <returns>Enumerable of weatherForecast objects.</returns>
         [HttpGet]
-        public IEnumerable<WeatherForecast> Get()
+        public List<WeatherForecast> Get()
         {
-            var weatherForecasts = FetchWeatherForecasts();
+            var weatherForecasts = Get(this.lat, this.lon);
 
             return weatherForecasts.GetRange(1, 5);
         }
 
         [HttpGet ("/forecast")]
-        public List<WeatherForecast> FetchWeatherForecasts()
+        public List<WeatherForecast> Get(double lat, double lon)
         {
-            double lat = double.Parse(configuration["WeatherForecast:lat"], CultureInfo.InvariantCulture);
-            double lon = double.Parse(configuration["WeatherForecast:lon"], CultureInfo.InvariantCulture);
-            var apiKey = configuration["WeatherForecast:apiKey"];
+            
 
             var client = new RestClient($"https://api.openweathermap.org/data/2.5/onecall?lat={lat}&lon={lon}&exclude=hourly,minutely&appid={apiKey}");
             client.Timeout = -1;

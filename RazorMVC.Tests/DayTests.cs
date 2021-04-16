@@ -6,6 +6,7 @@ using RazorMVC.WebAPI.Controllers;
 using Microsoft.Extensions.Logging.Abstractions;
 using Microsoft.Extensions.Configuration;
 using System.IO;
+using System.Linq;
 
 namespace RazorMVC.Tests
 {
@@ -43,10 +44,10 @@ namespace RazorMVC.Tests
             WeatherForecastController weatherForecastController = InstantiateWeatherForecastController();
 
             //Act
-            var weatherForecasts = weatherForecastController.FetchWeatherForecasts();
+            var weatherForecasts = weatherForecastController.Get();
 
             //Assert
-            Assert.Equal(8, weatherForecasts.Count);
+            Assert.Equal(5, weatherForecasts.Count);
             
         }
 
