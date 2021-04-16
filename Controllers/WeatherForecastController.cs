@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Globalization;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
@@ -17,11 +18,6 @@ namespace RazorMVC.WebAPI.Controllers
     [Route("[controller]")]
     public class WeatherForecastController : ControllerBase
     {
-        private static readonly string[] Summaries = new[]
-        {
-            "Freezing", "Bracing", "Chilly", "Cool", "Mild", "Warm", "Balmy", "Hot", "Sweltering", "Scorching",
-        };
-
         private readonly ILogger<WeatherForecastController> _logger;
         private IConfiguration configuration;
 
@@ -46,8 +42,8 @@ namespace RazorMVC.WebAPI.Controllers
         [HttpGet ("/forecast")]
         public List<WeatherForecast> FetchWeatherForecasts()
         {
-            double lat = double.Parse(configuration["WeatherForecast:lat"]);
-            double lon = double.Parse(configuration["WeatherForecast:lon"]);
+            double lat = double.Parse(configuration["WeatherForecast:lat"], CultureInfo.InvariantCulture);
+            double lon = double.Parse(configuration["WeatherForecast:lon"], CultureInfo.InvariantCulture);
             var apiKey = configuration["WeatherForecast:apiKey"];
 
             var client = new RestClient($"https://api.openweathermap.org/data/2.5/onecall?lat={lat}&lon={lon}&exclude=hourly,minutely&appid={apiKey}");
