@@ -51,11 +51,10 @@ namespace RazorMVC.Tests
             
         }
 
-        [Fact]
         public void ConvertWeatherJsonToWeatherForecast()
         {
             //Assume
-            string content = GetStreamLines();
+            string content = GetStreamLines("weatherForecast");
             WeatherForecastController weatherForecastController = InstantiateWeatherForecastController();
             //Act
             var weatherForecasts = weatherForecastController.ConvertResponseContentToWeatherForecastList(content);
@@ -65,10 +64,25 @@ namespace RazorMVC.Tests
             Assert.Equal(285.39, weatherForecastForTomorrow.TemperatureK);
         }
 
-        private string GetStreamLines()
+        [Fact]
+        public void ShouldHandleJsonErrorFromOpenWeatherAPI()
+        {
+            //Assume
+            string content = GetStreamLines("weatherForecast_Exception");
+            WeatherForecastController weatherForecastController = InstantiateWeatherForecastController();
+           
+            //Act
+           
+
+            //Assert
+            Assert.Throws<Exception>(() => weatherForecastController.ConvertResponseContentToWeatherForecastList(content));
+        }
+
+
+        private string GetStreamLines(string resourceName)
         {
             var assembly = this.GetType().Assembly;
-            using var stream = assembly.GetManifestResourceStream("RazorMVC.Tests.weatherForecast.json");
+            using var stream = assembly.GetManifestResourceStream($"RazorMVC.Tests.{resourceName}.json");
             StreamReader streamReader = new StreamReader(stream);
             var streamLineReader = "";
 
