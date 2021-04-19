@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Linq;
+using Microsoft.EntityFrameworkCore;
 using RazorMvc.Models;
 
 namespace RazorMvc.Data
@@ -8,7 +9,8 @@ namespace RazorMvc.Data
     {
         public static void Initialize(InternDbContext context)
         {
-            context.Database.EnsureCreated();
+
+            context.Database.Migrate();
 
             if (context.Interns.Any())
             {
