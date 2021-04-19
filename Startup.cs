@@ -8,7 +8,6 @@ using Microsoft.OpenApi.Models;
 using RazorMvc.Data;
 using RazorMvc.Hubs;
 using RazorMvc.Services;
-using RazorMVC.Data;
 using System;
 using System.IO;
 using System.Reflection;
@@ -43,16 +42,13 @@ namespace RazorMvc
                 return $"Server={url.Host};Port={url.Port};Database={url.LocalPath.Substring(1)};User Id={url.UserInfo.Split(':')[0]};Password={url.UserInfo.Split(':')[1]};Pooling=true;SSL Mode=Require;Trust Server Certificate=True;";
             }
 
-            throw new FormatException($"Database URL: ${envDatabaseUrl} could not be converted!");
+            throw new FormatException($"Database URL could not be converted! Check this {envDatabaseUrl}.");
         }
 
 
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-			services.AddDbContext<ApplicationDbContext>(options =>
-                options.UseNpgsql(
-                    connectionString));
             services.AddDbContext<InternDbContext>(options =>
                 options.UseNpgsql(
                     connectionString));
