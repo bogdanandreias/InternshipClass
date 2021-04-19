@@ -27,9 +27,9 @@ namespace RazorMVC.WebAPI.Controllers
         {
             _logger = logger;
 
-            this.lat = double.Parse(Environment.GetEnvironmentVariable("LATITUDE") ?? configuration["WeatherForecast:Latitude"], CultureInfo.InvariantCulture);
-            this.lon = double.Parse(Environment.GetEnvironmentVariable("LONGITUDE") ?? configuration["WeatherForecast:Longitude"], CultureInfo.InvariantCulture);
-            this.apiKey = Environment.GetEnvironmentVariable("API_KEY") ?? configuration["WeatherForecast:ApiKey"];
+            this.lat = double.Parse(Environment.GetEnvironmentVariable("LATITUDE") ?? configuration["WeatherForecast:lat"], CultureInfo.InvariantCulture);
+            this.lon = double.Parse(Environment.GetEnvironmentVariable("LONGITUDE") ?? configuration["WeatherForecast:lon"], CultureInfo.InvariantCulture);
+            this.apiKey = Environment.GetEnvironmentVariable("API_KEY") ?? configuration["WeatherForecast:apiKey"];
         }
 
         /// <summary>
