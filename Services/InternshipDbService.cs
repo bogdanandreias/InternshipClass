@@ -15,9 +15,11 @@ namespace RazorMvc.Services
         private IConfiguration configuration;
         private Location defaultLocation;
 
-        public InternshipDbService(InternDbContext db)
+        public InternshipDbService(InternDbContext db, IConfiguration configuration)
         {
             this.db = db;
+            this.configuration = configuration;
+            
         }
         public Intern AddMember(Intern member)
         {
