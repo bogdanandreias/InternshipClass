@@ -7,25 +7,38 @@ namespace RazorMvc.Data
 {
     public static class SeedData
     {
+        public static Location defaultLocation { get; private set; }
+
         public static void Initialize(InternDbContext context)
         {
 
             context.Database.Migrate();
 
-            if (context.Interns.Any())
+            if (!context.Locations.Any())
             {
-                return;   // DB has been seeded
-            }
-
-            var interns = new Intern[]
+                var locations = new Location[]
             {
-                new Intern { Name = "Bogdan", DateOfJoin = DateTime.Parse("2021-04-01") },
-                new Intern { Name = "Fabian", DateOfJoin = DateTime.Parse("2021-04-01") },
-                new Intern { Name = "Teodor", DateOfJoin = DateTime.Parse("2021-03-31") },
+                defaultLocation = new Location { Name = "Kyiv", NativeName = "Київ", Longitude = 30.5167, Latitude = 50.4333, },
+                new Location { Name = "Brasov", NativeName = "Braşov", Longitude = 25.3333, Latitude = 45.75, },
             };
 
-            context.Interns.AddRange(interns);
-            context.SaveChanges();
+                context.Locations.AddRange(locations);
+                context.SaveChanges();
+            }
+
+
+            if (!context.Interns.Any())
+            {
+                var interns = new Intern[]
+            {
+                new Intern { Name = "Bogdan", DateOfJoin = DateTime.Parse("2021-04-01"), Location = defaultLocation },
+                new Intern { Name = "Fabian", DateOfJoin = DateTime.Parse("2021-04-01"), Location = defaultLocation },
+                new Intern { Name = "Teodor", DateOfJoin = DateTime.Parse("2021-03-31"), Location = defaultLocation },
+            };
+
+                context.Interns.AddRange(interns);
+                context.SaveChanges();
+            }
         }
     }
 }

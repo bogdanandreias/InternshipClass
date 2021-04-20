@@ -11,5 +11,6 @@ namespace RazorMvc.Services
         void RemoveMember(int index);
         void UpdateMember(Intern intern);
         Intern GetMemberById(int id);
+        void UpdateLocation(int id, int locationId);
     }
 }

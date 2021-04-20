@@ -1,4 +1,5 @@
-﻿using RazorMvc.Data;
+﻿using Microsoft.Extensions.Configuration;
+using RazorMvc.Data;
 using RazorMvc.Hubs;
 using RazorMvc.Models;
 using System;
@@ -11,6 +12,8 @@ namespace RazorMvc.Services
     public class InternshipDbService : IInternshipService
     {
         private readonly InternDbContext db;
+        private IConfiguration configuration;
+        private Location defaultLocation;
 
         public InternshipDbService(InternDbContext db)
         {
@@ -18,9 +21,24 @@ namespace RazorMvc.Services
         }
         public Intern AddMember(Intern member)
         {
+            if(member.Location == null)
+            {
+                member.Location = GetDefaultLocation();
+            }
             db.Interns.AddRange(member);
             db.SaveChanges();
             return member;
+        }
+
+        private Location GetDefaultLocation()
+        {
+            if (defaultLocation == null)
+            {
+                var defaultLocationName = configuration["DefaultLocation"];
+                defaultLocation = db.Locations.Where(_ => _.Name == defaultLocationName).OrderBy(_ => _.Id).FirstOrDefault();
+            }
+
+            return defaultLocation;
         }
 
         public void UpdateMember(Intern intern)
@@ -51,7 +69,17 @@ namespace RazorMvc.Services
         }
         public Intern GetMemberById(int id)
         {
-            return db.Find<Intern>(id);
+            var intern = db.Find<Intern>(id);
+            db.Entry(intern).Reference(_ => _.Location).Load();
+            return intern;
+        }
+
+        public void UpdateLocation(int id, int locationId)
+        {
+            var intern = db.Find<Intern>(id);
+            var location = db.Find<Location>(locationId);
+            intern.Location = location;
+            db.SaveChanges();
         }
     }
 }
