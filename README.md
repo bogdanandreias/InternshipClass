@@ -2,7 +2,7 @@
 
 The infrastructure inspiration got [here](https://dev.to/alrobilliard/deploying-net-core-to-heroku-1lfe) 
 
-Application is deployed to [heroku](https://borys-internship-class.herokuapp.com/)
+Application is deployed to [heroku](https://internship-class-bogdan.herokuapp.com/)
 
 ## Prerequisites
 
