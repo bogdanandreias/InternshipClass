@@ -1,14 +1,13 @@
-﻿using RazorMvc.Hubs;
-using RazorMvc.Models;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using RazorMvc.Models;
 
 namespace RazorMvc.Services
 {
     public class InternshipService : IInternshipService
     {
-        private readonly InternshipClass _internshipClass = new();
+        private readonly InternshipClass _internshipClass = new ();
 
         public void RemoveMember(int id)
         {

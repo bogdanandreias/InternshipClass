@@ -1,9 +1,5 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using RazorMvc.Models;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 
 namespace RazorMvc.Data
 {
@@ -13,9 +9,10 @@ namespace RazorMvc.Data
             : base(options)
         {
         }
+
         public DbSet<Intern> Interns { get; set; }
 
-        public DbSet<Location> Locations{ get; set; }
+        public DbSet<Location> Locations { get; set; }
 
         public DbSet<Project> Projects { get; set; }
 

@@ -11,7 +11,6 @@ using Newtonsoft.Json.Linq;
 using RazorMvc.Utilities;
 using RestSharp;
 
-
 namespace RazorMVC.WebAPI.Controllers
 {
     [ApiController]
@@ -50,11 +49,9 @@ namespace RazorMVC.WebAPI.Controllers
         /// <param name="lat">It should be between -90 and 90. For example: latitude for Brasov is 45.75.</param>
         /// <param name="lon">It should be between -180 and 180. For example: longitude for Brasov is 25.3333.</param>
         /// <returns>List of weatherForecast objects.</returns>
-        [HttpGet ("/forecast")]
+        [HttpGet("/forecast")]
         public List<WeatherForecast> Get(double lat, double lon)
         {
-            
-
             var client = new RestClient($"https://api.openweathermap.org/data/2.5/onecall?lat={lat}&lon={lon}&exclude=hourly,minutely&appid={apiKey}");
             client.Timeout = -1;
             var request = new RestRequest(Method.GET);
@@ -67,15 +64,15 @@ namespace RazorMVC.WebAPI.Controllers
         [NonAction]
         public List<WeatherForecast> ConvertResponseContentToWeatherForecastList(string content)
         {
-
             var root = JObject.Parse(content);
             var testToken = root["daily"];
-            if(testToken == null)
+            if (testToken == null)
             {
                 var codToken = root["cod"];
                 var messageToken = root["message"];
                 throw new Exception($"Weather API doesn't work. Please check if you can run Weather API. : {messageToken}({codToken})");
             }
+
             var forecasts = new List<WeatherForecast>();
             foreach (var token in testToken)
             {
@@ -85,7 +82,6 @@ namespace RazorMVC.WebAPI.Controllers
                     TemperatureK = double.Parse(token["temp"]["day"].ToString()),
                     Summary = token["weather"][0]["description"].ToString(),
                 });
-
             }
 
             return forecasts;

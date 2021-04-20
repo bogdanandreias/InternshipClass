@@ -1,3 +1,6 @@
+using System;
+using System.IO;
+using System.Reflection;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.EntityFrameworkCore;
@@ -8,9 +11,6 @@ using Microsoft.OpenApi.Models;
 using RazorMvc.Data;
 using RazorMvc.Hubs;
 using RazorMvc.Services;
-using System;
-using System.IO;
-using System.Reflection;
 
 namespace RazorMvc
 {
@@ -26,13 +26,6 @@ namespace RazorMvc
 
         public IConfiguration Configuration { get; }
 
-        private string GetConnectionString()
-        {
-            var envDatabaseUrl = Environment.GetEnvironmentVariable("DATABASE_URL");
-            var herokuConnectionString = ConvertDatabaseUrlToHerokuString(envDatabaseUrl);
-            return herokuConnectionString;
-        }
-
         public static string ConvertDatabaseUrlToHerokuString(string envDatabaseUrl)
         {
             Uri url;
@@ -44,7 +37,6 @@ namespace RazorMvc
 
             throw new FormatException($"Database URL could not be converted! Check this {envDatabaseUrl}.");
         }
-
 
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
@@ -58,6 +50,7 @@ namespace RazorMvc
             services.AddSwaggerGen(c =>
             {
                 c.SwaggerDoc("v1", new OpenApiInfo { Title = "RazorMVC.WebAPI", Version = "v1" });
+
                 // Set the comments path for the Swagger JSON and UI.
                 var xmlFile = $"{Assembly.GetExecutingAssembly().GetName().Name}.xml";
                 var xmlPath = Path.Combine(AppContext.BaseDirectory, xmlFile);
@@ -65,14 +58,13 @@ namespace RazorMvc
             });
             services.AddSignalR();
             services.AddSingleton<MessageService>();
-            
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
         {
             if (env.IsDevelopment())
-            {    	
+            {
                 app.UseDeveloperExceptionPage();
                 app.UseMigrationsEndPoint();
                 app.UseSwagger();
@@ -100,6 +92,13 @@ namespace RazorMvc
                     pattern: "{controller=Home}/{action=Index}/{id?}");
                 endpoints.MapHub<MessageHub>("/messagehub");
             });
+        }
+
+        private string GetConnectionString()
+        {
+            var envDatabaseUrl = Environment.GetEnvironmentVariable("DATABASE_URL");
+            var herokuConnectionString = ConvertDatabaseUrlToHerokuString(envDatabaseUrl);
+            return herokuConnectionString;
         }
     }
 }

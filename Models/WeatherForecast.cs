@@ -11,6 +11,6 @@ namespace RazorMVC.WebAPI
 
         public string Summary { get; set; }
 
-        public double TemperatureK{ get; set; }
+        public double TemperatureK { get; set; }
     }
 }

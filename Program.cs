@@ -1,10 +1,10 @@
+using System;
+using System.Linq;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
 using RazorMvc.Data;
-using System;
-using System.Linq;
 
 namespace RazorMvc
 {

@@ -1,11 +1,9 @@
-﻿using Microsoft.Extensions.Configuration;
-using RazorMvc.Data;
-using RazorMvc.Hubs;
-using RazorMvc.Models;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Threading.Tasks;
+using Microsoft.Extensions.Configuration;
+using RazorMvc.Data;
+using RazorMvc.Models;
 
 namespace RazorMvc.Services
 {
@@ -19,28 +17,18 @@ namespace RazorMvc.Services
         {
             this.db = db;
             this.configuration = configuration;
-            
         }
+
         public Intern AddMember(Intern member)
         {
-            if(member.Location == null)
+            if (member.Location == null)
             {
                 member.Location = GetDefaultLocation();
             }
+
             db.Interns.AddRange(member);
             db.SaveChanges();
             return member;
-        }
-
-        private Location GetDefaultLocation()
-        {
-            if (defaultLocation == null)
-            {
-                var defaultLocationName = configuration["DefaultLocation"];
-                defaultLocation = db.Locations.Where(_ => _.Name == defaultLocationName).OrderBy(_ => _.Id).FirstOrDefault();
-            }
-
-            return defaultLocation;
         }
 
         public void UpdateMember(Intern intern)
@@ -65,7 +53,11 @@ namespace RazorMvc.Services
         public void RemoveMember(int id)
         {
             var intern = db.Find<Intern>(id);
-            if (intern == null) return;
+            if (intern == null)
+            {
+                return;
+            }
+
             db.Remove<Intern>(intern);
             db.SaveChanges();
         }
@@ -85,6 +77,17 @@ namespace RazorMvc.Services
             var location = db.Find<Location>(locationId);
             intern.Location = location;
             db.SaveChanges();
+        }
+
+        private Location GetDefaultLocation()
+        {
+            if (defaultLocation == null)
+            {
+                var defaultLocationName = configuration["DefaultLocation"];
+                defaultLocation = db.Locations.Where(_ => _.Name == defaultLocationName).OrderBy(_ => _.Id).FirstOrDefault();
+            }
+
+            return defaultLocation;
         }
     }
 }
