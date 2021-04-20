@@ -7,7 +7,7 @@ namespace RazorMvc.Data
 {
     public static class SeedData
     {
-        public static Location defaultLocation { get; private set; }
+        public static Location DefaultLocation { get; private set; }
 
         public static void Initialize(InternDbContext context)
         {
@@ -18,7 +18,7 @@ namespace RazorMvc.Data
             {
                 var locations = new Location[]
             {
-                defaultLocation = new Location { Name = "Kyiv", NativeName = "Київ", Longitude = 30.5167, Latitude = 50.4333, },
+                DefaultLocation = new Location { Name = "Kyiv", NativeName = "Київ", Longitude = 30.5167, Latitude = 50.4333, },
                 new Location { Name = "Brasov", NativeName = "Braşov", Longitude = 25.3333, Latitude = 45.75, },
             };
 
@@ -31,9 +31,9 @@ namespace RazorMvc.Data
             {
                 var interns = new Intern[]
             {
-                new Intern { Name = "Bogdan", DateOfJoin = DateTime.Parse("2021-04-01"), Location = defaultLocation },
-                new Intern { Name = "Fabian", DateOfJoin = DateTime.Parse("2021-04-01"), Location = defaultLocation },
-                new Intern { Name = "Teodor", DateOfJoin = DateTime.Parse("2021-03-31"), Location = defaultLocation },
+                new Intern { Name = "Bogdan", DateOfJoin = DateTime.Parse("2021-04-01"), Location = DefaultLocation },
+                new Intern { Name = "Fabian", DateOfJoin = DateTime.Parse("2021-04-01"), Location = DefaultLocation },
+                new Intern { Name = "Teodor", DateOfJoin = DateTime.Parse("2021-03-31"), Location = DefaultLocation },
             };
 
                 context.Interns.AddRange(interns);
