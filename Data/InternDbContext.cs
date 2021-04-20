@@ -17,6 +17,7 @@ namespace RazorMvc.Data
 
         public DbSet<Location> Locations{ get; set; }
 
+        public DbSet<Project> Projects { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {

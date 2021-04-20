@@ -69,10 +69,13 @@ namespace RazorMvc.Services
             db.Remove<Intern>(intern);
             db.SaveChanges();
         }
+
         public Intern GetMemberById(int id)
         {
             var intern = db.Find<Intern>(id);
             db.Entry(intern).Reference(_ => _.Location).Load();
+            db.Entry(intern).Collection(_ => _.Projects).Load();
+
             return intern;
         }
 

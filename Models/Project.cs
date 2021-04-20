@@ -6,17 +6,19 @@ using System.Threading.Tasks;
 
 namespace RazorMvc.Models
 {
-    public class Intern
+    public class Project
     {
         public int Id { get; set; }
 
         public string Name { get; set; }
 
-        public DateTime DateOfJoin { get; set; }
+        public DateTime StartDate { get; set; }
 
-        [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
-        public Location Location { get; set; }
+        public bool IsPublished { get; set; }
 
-        public ICollection<Project> Projects { get; set; }
+        public string Url { get; set; }
+
+        [JsonIgnore]
+        public ICollection<Intern> Interns { get; set; }
     }
 }
