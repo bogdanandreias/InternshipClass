@@ -47,6 +47,7 @@ namespace RazorMvc
             services.AddDatabaseDeveloperPageExceptionFilter();
             services.AddControllersWithViews();
             services.AddScoped<IInternshipService, InternshipDbService>();
+            services.AddScoped<EmployeeDbService>();
             services.AddSwaggerGen(c =>
             {
                 c.SwaggerDoc("v1", new OpenApiInfo { Title = "RazorMVC.WebAPI", Version = "v1" });
