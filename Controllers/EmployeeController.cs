@@ -36,11 +36,17 @@ namespace RazorMvc.Controllers
 
         // POST employee/<EmployeeController>
         [HttpPost]
-        public void Post([FromBody] Employee employee)
+        public Employee Post([FromBody] Employee employee)
         {
             var newEmployee = employeeService.AddEmployee(employee);
-
-            //hubContext.Clients.All.SendAsync("AddMember", newMember.Name, newMember.Id);
+            return newEmployee;
         }
+
+        [HttpDelete("{id}")]
+        public void Delete(int id)
+        {
+            employeeService.RemoveEmployee(id);
+        }
+
     }
 }
